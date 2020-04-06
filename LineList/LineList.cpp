@@ -67,7 +67,7 @@ int TList::getDataAlloy(int* alloy, int length, int pos)
 	alloy[pos] = this->data; //get data
 	if (pos < length -1)
 	{
-		if (this->checkNextIsNull()) //check next is NULL
+		if (this->next == NULL) //check next is NULL
 		{
 			return -3;
 		}
@@ -113,7 +113,16 @@ int TList::addData(int data, int pos)
 
 int TList::addList(int data, int pos)
 {
-	if (pos > 0)
+	if (pos == -1) //create in head, in fact it just create next to head and copy head, add new data and next in head 
+	{
+		TList* buffer = this->next;
+		TList* newNode = new TList(this->data);
+		this->next = newNode;
+		newNode->next = buffer;
+		this->data = data;
+		std::cout << "add type: head" << std::endl;
+	}
+	else if (pos > 0)
 	{
 		if (checkNextIsNull())
 		{
@@ -147,7 +156,16 @@ int TList::addList(int data, int pos)
 
 int TList::delList(int pos)
 {
-	if (pos > 0)
+	if (pos == 0) //del the head, in fact it just copy this->next, then delete this->next
+	{
+		TList* next = this->next->next;
+		int data = this->next->data;
+		delete this->next;
+		this->next = next;
+		this->data = data;
+		std::cout << "delete type: head" << std::endl;
+	}
+	else if (pos > 0)
 	{
 		if (checkNextIsNull())
 		{
@@ -162,15 +180,6 @@ int TList::delList(int pos)
 			this->prev = NULL;
 			delete this;
 			std::cout << "delete type: tail" << std::endl;
-		}
-		else if (this->prev == NULL) //del the head, in fact it just copy this->next, then delete this->next
-		{
-			TList* next = this->next->next;
-			int data = this->next->data;
-			delete this->next;
-			this->next = next;
-			this->data = data;
-			std::cout << "delete type: head" << std::endl;
 		}
 		else
 		{

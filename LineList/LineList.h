@@ -18,7 +18,7 @@ public:
 	int delList(int pos); //delete a TList, return 0 -> sucess, -1 -> fail
 	int addData(int data = 0, int pos = 0);
 	int getData(int pos = 0);
-	int getDataAlloy(int* alloy, int length, int start = 0);
+	int getDataAlloy(int* alloy, int length, int pos = 0);
 	int getLength(); //return this link list length
 	TList* getPos(int pos = 0);
 	TList(int data);

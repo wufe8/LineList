@@ -20,9 +20,11 @@ int main()
 	head.addList(14, 2);
 	head.addList(18, 2);
 	printLineList(&head);
-	std::cout << head.getPos(head.getLength() - 1) << std::endl;
-	system("pause");
+	int pp = head.getLength() - 1;
+	std::cout << "lineList[" << pp << "] = " << head.getData(pp)  << " in " << head.getPos(pp) << std::endl;
 	head.delList(0);
+	printLineList(&head);
+	head.addList(100, -1);
 	printLineList(&head);
 	system("pause");
 	return 0;
@@ -30,19 +32,21 @@ int main()
 
 int printLineList(TList* target)
 {
-	if (target->getLength() > LIST_LENGTH)
+	const int listLength = target->getLength();
+	if (target->getLength() > LIST_LENGTH) //check output alloy length
 	{
 		std::cout << "invalue length! change LIST_LENGTH in test.cpp!" << std::endl;
+		return 1;
 	}
-	std::cout << "length = " << LIST_LENGTH << std::endl;
+	std::cout << "length = " << target->getLength() << std::endl;
 	int lineList[LIST_LENGTH];
 	for (int i = 0; i < LIST_LENGTH; i++)
 	{
-		lineList[i] = 0;
+		lineList[i] = 0; //init
 	}
-	target->getDataAlloy(lineList, LIST_LENGTH);
+	target->getDataAlloy(lineList, listLength);
 	std::cout << "linelist[] = {";
-	for (int i = 0; i < target->getLength(); i++)
+	for (int i = 0; i < listLength; i++)
 	{
 		std::cout << lineList[i] << ", ";
 	}
