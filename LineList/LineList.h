@@ -30,13 +30,18 @@ class TStack : public TLinkedList //使用前请务必使用setLength()方法检测链表长度!
 public:
 	void push(int data);
 	int pop();
+	int peek();
 	using TLinkedList::TLinkedList; //C++11
 	//TStack() : TLinkedList(1){};
 };
 
 class TQueue : public TLinkedList
 {
-
+public:
+	void push(int data);
+	int pop();
+	int peek();
+	using TLinkedList::TLinkedList; //C++11
 };
 
 #endif

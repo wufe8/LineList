@@ -12,7 +12,7 @@ inline int TLinkedList::checkNextIsNull() //检查下一个节点是否为NULL
 {
 	if (this->next == NULL)
 	{
-		//std::cout << "ERROR: this->next == NULL; in " << this << std::endl;
+		std::cout << "ERROR: this->next == NULL; in " << this << std::endl;
 		return 1;
 	}
 	else
@@ -25,7 +25,7 @@ inline int TLinkedList::checkPrevIsNull() //检查上一个节点是否为NULL
 {
 	if (this->prev == NULL)
 	{
-		//std::cout << "ERROR: this->prev == NULL; in " << this << std::endl;
+		std::cout << "ERROR: this->prev == NULL; in " << this << std::endl;
 		return 1;
 	}
 	else
@@ -69,12 +69,12 @@ int TLinkedList::getDataAlloy(int* alloy, int length, int pos) //将pos到length
 {
 	if (alloy == NULL) //check alloy
 	{
-		//std::cout << "alloy is NULL!" << std::endl;
+		std::cout << "alloy is NULL!" << std::endl;
 		return -1;
 	}
 	if (alloy + length - 1 == NULL) //check alloy[length - 1]
 	{
-		//std::cout << "length is wrong!" << std::endl;
+		std::cout << "length is wrong!" << std::endl;
 		return -2;
 	}
 	alloy[pos] = this->data; //get data
@@ -158,7 +158,7 @@ int TLinkedList::addList(int data, int pos) //在pos节点后添加新节点, �
 		this->next = newNode;
 		newNode->next = buffer;
 		this->data = data;
-		//std::cout << "add type: head" << std::endl;
+		std::cout << "added " << data << " in [" << pos << "] ;add type: head" << std::endl;
 		return 0;
 	}
 	TLinkedList* point = this;
@@ -178,7 +178,7 @@ int TLinkedList::addList(int data, int pos) //在pos节点后添加新节点, �
 		TLinkedList* newNode = new TLinkedList(data);
 		newNode->prev = point;
 		point->next = newNode;
-		//std::cout << "add type: tail" << std::endl;
+		std::cout << "added " << data << " in [" << pos << "] ;add type: tail" << std::endl;
 		return 0;
 	}
 	else
@@ -188,7 +188,7 @@ int TLinkedList::addList(int data, int pos) //在pos节点后添加新节点, �
 		TLinkedList* buffer = this->next;
 		this->next = newNode;
 		this->next->next = buffer;
-		//std::cout << "add type: insert" << std::endl;
+		std::cout << "added " << data << " in [" << pos << "] ;add type: insert" << std::endl;
 		return 0;
 	}
 	/*else if (pos > 0) //recursive
@@ -206,7 +206,7 @@ int TLinkedList::addList(int data, int pos) //在pos节点后添加新节点, �
 			TLinkedList* newNode = new TLinkedList(data);
 			newNode->prev = this;
 			this->next = newNode;
-			//std::cout << "add type: tail" << std::endl;
+			std::cout << "added "  << data << " in [" << pos << "] ;add type: tail" << std::endl;
 			return 0;
 		}
 		else
@@ -216,7 +216,7 @@ int TLinkedList::addList(int data, int pos) //在pos节点后添加新节点, �
 			TLinkedList* buffer = this->next;
 			this->next = newNode;
 			this->next->next = buffer;
-			//std::cout << "add type: insert" << std::endl;
+			std::cout << "added "  << data << " in [" << pos << "] ;add type: insert" << std::endl;
 			return 0;
 		}
 	}*/
@@ -229,7 +229,7 @@ int TLinkedList::delList(int pos) //删除pos节点
 	{
 		if (this->next == NULL)
 		{
-			//std::cout << "ERROR: No node left!" << std::endl;
+			std::cout << "ERROR: No node left!" << std::endl;
 			return -1;
 		}
 		TLinkedList* buffer = this->next->next;
@@ -237,7 +237,7 @@ int TLinkedList::delList(int pos) //删除pos节点
 		delete this->next;
 		this->next = buffer;
 		this->data = data;
-		//std::cout << "delete type: head" << std::endl;
+		std::cout << "deleted [" << pos << "] ;delete type: head" << std::endl;
 		return 0;
 	}
 	TLinkedList* point = this; //loop
@@ -256,14 +256,14 @@ int TLinkedList::delList(int pos) //删除pos节点
 	{
 		point->prev->next = NULL;
 		delete point;
-		//std::cout << "delete type: tail" << std::endl;
+		std::cout << "deleted [" << pos << "] ;delete type: tail" << std::endl;
 	}
 	else //del the middle
 	{
 		point->prev->next = point->next;
 		point->next->prev = point->prev;
 		delete point;
-		//std::cout << "delete type: middle" << std::endl;
+		std::cout << "deleted [" << pos << "] ;delete type: middle" << std::endl;
 	}
 	//if (pos > 0) //recursive
 	//{
@@ -282,21 +282,21 @@ int TLinkedList::delList(int pos) //删除pos节点
 	//		delete this->next;
 	//		this->next = buffer;
 	//		this->data = data;
-	//		//std::cout << "delete type: head" << std::endl;
+	//		std::cout << "deleted [" << pos << "] ;delete type: head" << std::endl;
 	//		return 0;
 	//	}
 	//	else if (this->next == NULL) //del the tail
 	//	{
 	//		this->prev->next = NULL; //flash prev.next to prevent wrong recursive
 	//		delete this;
-	//		//std::cout << "delete type: tail" << std::endl;
+	//		std::cout << "deleted [" << pos << "] ;delete type: tail" << std::endl;
 	//	}
 	//	else //del the middle
 	//	{
 	//		this->prev->next = this->next;
 	//		this->next->prev = this->prev;
 	//		delete this;
-	//		//std::cout << "delete type: middle" << std::endl;
+	//		std::cout << "deleted [" << pos << "] ;delete type: middle" << std::endl;
 	//	}
 	//}
 	return 0;
@@ -320,7 +320,7 @@ int TLinkedList::setLength() //将链表长度记录到this->data
 	this->data = getLength();
 	if (this->data == 0)
 	{
-		//std::cout << "ERROR: fail to get linkedList length.";
+		std::cout << "ERROR: fail to get linkedList length.";
 		return 1;
 	}
 	return 0;
