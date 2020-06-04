@@ -147,7 +147,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="LineList.cpp" />
+    <ClCompile Include="LinkedList.cpp" />
+    <ClCompile Include="Stack.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>

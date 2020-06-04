@@ -3,34 +3,68 @@
 
 #define LIST_LENGTH  32
 
-int printLineList(TList* target);
+template<class T>
+int printLineList(T* target);
 
 int main()
 {
-	TList head(1);
-	std::cout << "lineList[0] = " << head.getData(0) << ", sizeof = " << head.getLength() << std::endl;
-	head.addData(20, 0);
-	std::cout << "lineList[0] = " << head.getData(0) << std::endl;
-	head.addList(5, 0);
-	std::cout << "lineList[1] = " << head.getData(1) << ", sizeof = " << head.getLength() << std::endl;
-	head.addData(10, 1);
-	std::cout << "lineList[1] = " << head.getData(1) << std::endl;
-	printLineList(&head);
-	head.addList(12, 1);
-	head.addList(14, 2);
-	head.addList(18, 2);
-	printLineList(&head);
-	int pp = head.getLength() - 1;
-	std::cout << "lineList[" << pp << "] = " << head.getData(pp)  << " in " << head.getPos(pp) << std::endl;
+	TStack boat;
+	boat.setLength();
+	printLineList(&boat);
+	boat.push(10);
+	printLineList(&boat);
+	boat.push(20);
+	printLineList(&boat);
+	boat.push(30);
+	printLineList(&boat);
+	boat.pop();
+	printLineList(&boat);
+	boat.push(40);
+	printLineList(&boat);
+	boat.pop();
+	printLineList(&boat);
+	boat.pop();
+	printLineList(&boat);
+	boat.push(50);
+	printLineList(&boat);
+	boat.pop();
+	printLineList(&boat);
+	boat.pop();
+	printLineList(&boat);
+	boat.pop();
+	printLineList(&boat);
+	boat.pop();
+	std::cout << "\n================================\n\n";
+	TLinkedList head(1);
+			printLineList(&head);
+	head.addData(10, 0);
+			printLineList(&head);
+	head.addList(2, 0);
+			printLineList(&head);
+	head.addData(20, 1);
+			printLineList(&head);
+	head.addList(3, 1);
+			printLineList(&head);
+	head.addList(4, 2);
+			printLineList(&head);
+	head.addList(5, 2);
+			printLineList(&head);
 	head.delList(0);
-	printLineList(&head);
+			printLineList(&head);
 	head.addList(100, -1);
-	printLineList(&head);
+			printLineList(&head);
+	head.delList(3);
+			printLineList(&head);
+	head.delList(3);
+			printLineList(&head);
+	head.delList(3);
+			printLineList(&head);
 	system("pause");
 	return 0;
 }
 
-int printLineList(TList* target)
+template<class T>
+int printLineList(T* target)
 {
 	const int listLength = target->getLength();
 	if (target->getLength() > LIST_LENGTH) //check output alloy length
@@ -38,7 +72,7 @@ int printLineList(TList* target)
 		std::cout << "invalue length! change LIST_LENGTH in test.cpp!" << std::endl;
 		return 1;
 	}
-	std::cout << "length = " << target->getLength() << std::endl;
+	std::cout << "length = " << target->getLength() << "; ";
 	int lineList[LIST_LENGTH];
 	for (int i = 0; i < LIST_LENGTH; i++)
 	{
