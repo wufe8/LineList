@@ -1,10 +1,7 @@
 #include "LineList.h"
 #include <iostream>
 #include <string>
-
-#include "LinkedList.cpp"
-#include "Stack.cpp"
-#include "Queue.cpp"
+#include "LinkTemplate.h"
 
 #define LIST_LENGTH  32
 
