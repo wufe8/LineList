@@ -1,47 +1,51 @@
-#pragma once
 #ifndef _LINELIST_H_
 #define _LINELIST_H_
 
 #define NULL 0
 
+#include <string>
+
+template<typename T>
 class TLinkedList
 {
 private:
-	int data;
+	T data;
 	TLinkedList* prev;
 	TLinkedList* next;
 protected:
 	inline int checkNextIsNull();
 	inline int checkPrevIsNull();
 public:
-	int addList(int data = 0, int pos = 0); //add a TList, add in next to the last one when pos == 0
-	int delList(int pos); //delete a TList, return 0 -> sucess, -1 -> fail
-	int addData(int data = 0, int pos = 0);
-	int getData(int pos = 0);
-	int getDataAlloy(int* alloy, int length, int pos = 0);
+	int addList(T data = 0, int pos = 0); //add a TList, add in next to the last one when pos == 0
+	T delList(int pos); //delete a TList, return 0 -> sucess, -1 -> fail
+	int addData(T data = 0, int pos = 0);
+	T getData(int pos = 0);
+	int getDataArray(std::string* array, int length, int pos = 0);
 	int getLength(); //return this link list length
 	int setLength(); //set to <TList>[0]->data, WILL CHANGE HEAD DATA!!
 	TLinkedList* getPos(int pos = 0);
-	TLinkedList(int data = 0);
+	TLinkedList(T data = 0);
 };
 
-class TStack : public TLinkedList //使用前请务必使用setLength()方法检测链表长度!!
+template<typename T>
+class TStack : public TLinkedList<T> //使用前请务必使用setLength()方法检测链表长度!!
 {
 public:
-	void push(int data);
-	int pop();
-	int peek();
-	using TLinkedList::TLinkedList; //C++11
-	//TStack() : TLinkedList(1){};
+	void push(T data);
+	T pop();
+	T peek();
+	using TLinkedList<T>::TLinkedList; //C++11
+	//TStack() : TLinkedList<T>(1){};
 };
 
-class TQueue : public TLinkedList
+template<typename T>
+class TQueue : public TLinkedList<T>
 {
 public:
-	void push(int data);
-	int pop();
-	int peek();
-	using TLinkedList::TLinkedList; //C++11
+	void push(T data);
+	T pop();
+	T peek();
+	using TLinkedList<T>::TLinkedList; //C++11
 };
 
 #endif

@@ -1,37 +1,45 @@
 #include "LineList.h"
 #include <iostream>
 
-void TStack::push(int data)
+#include "pch.h"
+
+template<typename T>
+void TStack<T>::push(T data)
 {
-	addList(data, getData(0) - 1);
-	addData(getData(0) + 1, 0);
+	int arrayLength = this->getLength();
+	if (arrayLength <= 0)
+	{
+		std::cout << "ERROR: Nothing in the stack!" << std::endl;
+	}
+	this->addList(data, this->getLength() - 1);
 	std::cout << "pushed: " << data << std::endl;
 }
 
-int TStack::pop()
+template<typename T>
+T TStack<T>::pop()
 {
-	
-	if (getData(0) <= 1)
+	int arrayLength = this->getLength();
+	if (arrayLength <= 0)
 	{
 		std::cout << "ERROR: Nothing in the stack!" << std::endl;
 		return -1;
 	}
-	addData(getData(0) - 1, 0);
-	int data = getData(getData(0));
-	delList(getData(0));
+	T data;
+	return this->delList(this->getLength() - 1);
 	std::cout << "poped: " << data << std::endl;
 	return data;
 }
 
-int TStack::peek()
+template<typename T>
+T TStack<T>::peek()
 {
-
-	if (getData(0) <= 1)
+	int arrayLength = this->getLength();
+	if (arrayLength <= 0)
 	{
 		std::cout << "ERROR: Nothing in the stack!" << std::endl;
 		return -1;
 	}
-	int data = getData(getData(0) - 1);
+	T data = this->getData(arrayLength - 1);
 	std::cout << "peeked: " << data << std::endl;
 	return data;
 }

@@ -1,38 +1,44 @@
 #include "LineList.h"
 #include <iostream>
 
+#include "pch.h"
 
-void TQueue::push(int data)
+template<typename T>
+void TQueue<T>::push(T data)
 {
-	addList(data, getData(0) - 1);
-	addData(getData(0) + 1, 0);
+	int arrayLength = this->getLength();
+	if (arrayLength <= 0)
+	{
+		std::cout << "ERROR: Nothing in the queue!" << std::endl;
+	}
+	this->addList(data, arrayLength - 1);
 	std::cout << "pushed: " << data << std::endl;
 }
 
-int TQueue::pop()
+template<typename T>
+T TQueue<T>::pop()
 {
-
-	if (getData(0) <= 1)
+	int arrayLength = this->getLength();
+	if (arrayLength <= 0)
 	{
 		std::cout << "ERROR: Nothing in the queue!" << std::endl;
 		return -1;
 	}
-	addData(getData(0) - 1, 0);
-	int data = getData(1);
-	delList(1);
+	T data = this->delList(0);
 	std::cout << "poped: " << data << std::endl;
 	return data;
 }
 
-int TQueue::peek()
+template<typename T>
+T TQueue<T>::peek()
 {
-
-	if (getData(0) <= 1)
+	int arrayLength = this->getLength();
+	if (arrayLength <= 0)
 	{
 		std::cout << "ERROR: Nothing in the queue!" << std::endl;
 		return -1;
 	}
-	int data = getData(1);
+	T data = this->getData(1);
 	std::cout << "peeked: " << data << std::endl;
 	return data;
 }

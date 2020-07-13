@@ -1,5 +1,10 @@
 #include "LineList.h"
 #include <iostream>
+#include <string>
+
+#include "LinkedList.cpp"
+#include "Stack.cpp"
+#include "Queue.cpp"
 
 #define LIST_LENGTH  32
 
@@ -8,7 +13,7 @@ int printLineList(T* target);
 
 int main()
 {
-	TStack boat;
+	TStack<float> boat;
 	printLineList(&boat);
 	boat.setLength();
 	printLineList(&boat);
@@ -42,7 +47,7 @@ int main()
 	printLineList(&boat);
 	boat.pop();
 	std::cout << "\n================================\n\n";
-	TQueue unit;
+	TQueue<double> unit;
 	unit.setLength();
 	printLineList(&unit);
 	unit.push(10);
@@ -75,7 +80,7 @@ int main()
 	printLineList(&unit);
 	unit.pop();
 	std::cout << "\n================================\n\n";
-	TLinkedList head(1);
+	TLinkedList<long> head(1);
 	printLineList(&head);
 	head.addData(10, 0);
 	printLineList(&head);
@@ -107,18 +112,18 @@ template<class T>
 int printLineList(T* target)
 {
 	const int listLength = target->getLength();
-	if (target->getLength() > LIST_LENGTH) //check output alloy length
+	if (target->getLength() > LIST_LENGTH) //check output array length
 	{
 		std::cout << "invalue length! change LIST_LENGTH in test.cpp!" << std::endl;
 		return 1;
 	}
 	std::cout << "length = " << target->getLength() << "; ";
-	int lineList[LIST_LENGTH];
+	std::string lineList[LIST_LENGTH];
 	for (int i = 0; i < LIST_LENGTH; i++)
 	{
-		lineList[i] = 0; //init
+		lineList[i] = "0"; //init
 	}
-	target->getDataAlloy(lineList, listLength);
+	target->getDataArray(lineList, listLength);
 	std::cout << "linelist[] = {";
 	for (int i = 0; i < listLength; i++)
 	{

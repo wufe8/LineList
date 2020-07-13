@@ -1,14 +1,18 @@
 ﻿#include "LineList.h"
 #include <iostream>
 
-TLinkedList::TLinkedList(int data) :
+#include "pch.h"
+
+template<typename T>
+TLinkedList<T>::TLinkedList(T data) :
 	data(data),
 	next(NULL),
 	prev(NULL)
 {
 }
 
-inline int TLinkedList::checkNextIsNull() //检查下一个节点是否为NULL
+template<typename T>
+inline int TLinkedList<T>::checkNextIsNull() //检查下一个节点是否为NULL
 {
 	if (this->next == NULL)
 	{
@@ -21,7 +25,8 @@ inline int TLinkedList::checkNextIsNull() //检查下一个节点是否为NULL
 	}
 }
 
-inline int TLinkedList::checkPrevIsNull() //检查上一个节点是否为NULL
+template<typename T>
+inline int TLinkedList<T>::checkPrevIsNull() //检查上一个节点是否为NULL
 {
 	if (this->prev == NULL)
 	{
@@ -34,7 +39,8 @@ inline int TLinkedList::checkPrevIsNull() //检查上一个节点是否为NULL
 	}
 }
 
-int TLinkedList::getData(int pos) //获取pos节点的data
+template<typename T>
+T TLinkedList<T>::getData(int pos) //获取pos节点的data
 {
 	TLinkedList* point = this; //loop
 	for (int i = pos; i > 0; i--)
@@ -49,7 +55,7 @@ int TLinkedList::getData(int pos) //获取pos节点的data
 		}
 	}
 	return point->data;
-	/*int data; //recursive
+	/*T data; //recursive
 	if (pos > 0)
 	{
 		if (checkNextIsNull())
@@ -65,31 +71,33 @@ int TLinkedList::getData(int pos) //获取pos节点的data
 	return data;*/
 }
 
-int TLinkedList::getDataAlloy(int* alloy, int length, int pos) //将pos到length间的节点data赋到alloy[0 to length]
+template<typename T>
+int TLinkedList<T>::getDataArray(std::string* array, int pos, int length) //将pos到length间的节点data赋到array[0 to length]
 {
-	if (alloy == NULL) //check alloy
+	if (array == NULL) //check array
 	{
-		std::cout << "alloy is NULL!" << std::endl;
+		std::cout << "array is NULL!" << std::endl;
 		return -1;
 	}
-	if (alloy + length - 1 == NULL) //check alloy[length - 1]
+	if (array + length - 1 == NULL) //check array[length - 1]
 	{
 		std::cout << "length is wrong!" << std::endl;
 		return -2;
 	}
-	alloy[pos] = this->data; //get data
+	array[pos] = std::to_string(this->data); //get data
 	if (pos < length -1)
 	{
 		if (this->next == NULL) //check next is NULL
 		{
 			return -3;
 		}
-		this->next->getDataAlloy(alloy, length, pos + 1);
+		this->next->getDataArray(array, length, pos + 1);
 	}
 	return 0;
 }
 
-TLinkedList* TLinkedList::getPos(int pos) //获取pos节点的内存地址
+template<typename T>
+TLinkedList<T>* TLinkedList<T>::getPos(int pos) //获取pos节点的内存地址
 {
 	TLinkedList* point = this; //loop
 	for (int i = pos; i > 0; i--)
@@ -119,7 +127,8 @@ TLinkedList* TLinkedList::getPos(int pos) //获取pos节点的内存地址
 	}*/
 }
 
-int TLinkedList::addData(int data, int pos) //在pos节点给data赋值
+template<typename T>
+int TLinkedList<T>::addData(T data, int pos) //在pos节点给data赋值
 {
 	TLinkedList* point = this; //loop
 	for (int i = pos; i > 0; i--)
@@ -149,14 +158,15 @@ int TLinkedList::addData(int data, int pos) //在pos节点给data赋值
 	return 0;
 }
 
-int TLinkedList::addList(int data, int pos) //在pos节点后添加新节点, 并赋data
+template<typename T>
+int TLinkedList<T>::addList(T data, int pos) //在pos节点后添加新节点, 并赋data
 {
 	if (pos == -1) //create in head, in fact it just create next to head and copy head, add new data and next in head 
 	{
-		TLinkedList* buffer = this->next;
+		TLinkedList* pointerBuffer = this->next;
 		TLinkedList* newNode = new TLinkedList(this->data);
 		this->next = newNode;
-		newNode->next = buffer;
+		newNode->next = pointerBuffer;
 		this->data = data;
 		std::cout << "added " << data << " in [" << pos << "] ;add type: head" << std::endl;
 		return 0;
@@ -185,9 +195,9 @@ int TLinkedList::addList(int data, int pos) //在pos节点后添加新节点, �
 	{
 		TLinkedList* newNode = new TLinkedList(data);
 		newNode->prev = this;
-		TLinkedList* buffer = this->next;
+		TLinkedList* pointerBuffer = this->next;
 		this->next = newNode;
-		this->next->next = buffer;
+		this->next->next = pointerBuffer;
 		std::cout << "added " << data << " in [" << pos << "] ;add type: insert" << std::endl;
 		return 0;
 	}
@@ -213,9 +223,9 @@ int TLinkedList::addList(int data, int pos) //在pos节点后添加新节点, �
 		{
 			TLinkedList* newNode = new TLinkedList(data);
 			newNode->prev = this;
-			TLinkedList* buffer = this->next;
+			TLinkedList* pointerBuffer = this->next;
 			this->next = newNode;
-			this->next->next = buffer;
+			this->next->next = pointerBuffer;
 			std::cout << "added "  << data << " in [" << pos << "] ;add type: insert" << std::endl;
 			return 0;
 		}
@@ -223,46 +233,52 @@ int TLinkedList::addList(int data, int pos) //在pos节点后添加新节点, �
 	return 0;
 }
 
-int TLinkedList::delList(int pos) //删除pos节点
+template<typename T>
+T TLinkedList<T>::delList(int pos) //删除pos节点
 {
+	T deletedData = 0;
 	if (pos == 0) //del the head, in fact it just copy this->next, then delete this->next
 	{
-		if (this->next == NULL)
+		if (this->next == NULL) //No node left
 		{
-			std::cout << "ERROR: No node left!" << std::endl;
-			return -1;
+			deletedData = this->data;
+			this->data = 0;
+			return deletedData;
 		}
-		TLinkedList* buffer = this->next->next;
-		int data = this->next->data;
+		deletedData = this->data;
+		TLinkedList* pointerBuffer = this->next->next;
+		T data = this->next->data;
 		delete this->next;
-		this->next = buffer;
+		this->next = pointerBuffer;
 		this->data = data;
 		std::cout << "deleted [" << pos << "] ;delete type: head" << std::endl;
 		return 0;
 	}
-	TLinkedList* point = this; //loop
+	TLinkedList* pointerBuffer = this; //loop
 	for (int i = pos; i > 0; i--)
 	{
-		if (point->checkNextIsNull())
+		if (pointerBuffer->checkNextIsNull())
 		{
 			return -1;
 		}
 		else
 		{
-			point = point->next;
+			pointerBuffer = pointerBuffer->next;
 		}
 	}
-	if (point->next == NULL) //del the tail
+	if (pointerBuffer->next == NULL) //del the tail
 	{
-		point->prev->next = NULL;
-		delete point;
+		pointerBuffer->prev->next = NULL;
+		deletedData = pointerBuffer->data;;
+		delete pointerBuffer;
 		std::cout << "deleted [" << pos << "] ;delete type: tail" << std::endl;
 	}
 	else //del the middle
 	{
-		point->prev->next = point->next;
-		point->next->prev = point->prev;
-		delete point;
+		pointerBuffer->prev->next = pointerBuffer->next;
+		pointerBuffer->next->prev = pointerBuffer->prev;
+		deletedData = pointerBuffer->data;
+		delete pointerBuffer;
 		std::cout << "deleted [" << pos << "] ;delete type: middle" << std::endl;
 	}
 	//if (pos > 0) //recursive
@@ -277,10 +293,11 @@ int TLinkedList::delList(int pos) //删除pos节点
 	//{
 	//	if (this->prev == 0) //del the head, in fact it just copy this->next, then delete this->next
 	//	{
-	//		TLinkedList* buffer = this->next->next;
-	//		int data = this->next->data;
+	//		TLinkedList* pointerBuffer = this->next->next;
+	//		T data = this->next->data;
+	//		deletedData = this->data;
 	//		delete this->next;
-	//		this->next = buffer;
+	//		this->next = pointerBuffer;
 	//		this->data = data;
 	//		std::cout << "deleted [" << pos << "] ;delete type: head" << std::endl;
 	//		return 0;
@@ -295,14 +312,16 @@ int TLinkedList::delList(int pos) //删除pos节点
 	//	{
 	//		this->prev->next = this->next;
 	//		this->next->prev = this->prev;
+	//		deletedData = this->data;
 	//		delete this;
 	//		std::cout << "deleted [" << pos << "] ;delete type: middle" << std::endl;
 	//	}
 	//}
-	return 0;
+	return deletedData;
 }
 
-int TLinkedList::getLength() //递归获取链表长度 效率可能过低 推荐使用setLength()进行记录而非直接调用
+template<typename T>
+int TLinkedList<T>::getLength() //递归获取链表长度 效率可能过低 推荐使用setLength()进行记录而非直接调用
 {
 	if (this->next == NULL) //check if this->next == NULL, that return tail
 	{
@@ -315,9 +334,10 @@ int TLinkedList::getLength() //递归获取链表长度 效率可能过低 推�
 	}
 }
 
-int TLinkedList::setLength() //将链表长度记录到this->data
+template<typename T>
+int TLinkedList<T>::setLength() //将链表长度记录到this->data
 {
-	this->data = getLength();
+	this->data = T(getLength());
 	if (this->data == 0)
 	{
 		std::cout << "ERROR: fail to get linkedList length.";
