@@ -7,7 +7,7 @@
 					{ \
 						return; \
 					} \
-					(cable->*Active)(); \
+					cable->Active(); \
 
 //template<class T0, class T1>
 class Connect;
@@ -21,8 +21,6 @@ public:
 
 class Keyboard : public Device
 {
-private:
-	void call();
 public:
 	Keyboard();
 	~Keyboard();

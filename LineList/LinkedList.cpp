@@ -10,7 +10,6 @@ TLinkedList<T>::TLinkedList(T data) :
 	prev(NULL)
 {
 }
-
 template<typename T>
 inline int TLinkedList<T>::checkNextIsNull() //检查下一个节点是否为NULL
 {

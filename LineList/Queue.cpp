@@ -27,7 +27,9 @@ T TQueue<T>::pop()
 	T data = this->delList(0);
 	std::cout << "poped: " << data << std::endl;
 	return data;
-}
+} 
+
+
 
 template<typename T>
 T TQueue<T>::peek()

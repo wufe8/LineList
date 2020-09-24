@@ -1,12 +1,6 @@
 #include <iostream>
 #include "SignalSlot.h"
 
-void Keyboard::call()
-{
-	emit transfur();
-}
-
-
 Keyboard::Keyboard()
 {
 	std::cout << "Detected keyboard connect!" << std::endl;
@@ -25,7 +19,7 @@ void Keyboard::touch(int num)
 	{
 	case 2:
 		std::cout << "100 ok" << std::endl;
-		call();
+		emit transfur();
 		break;
 	default:
 		std::cout << "0   no response" << std::endl;
@@ -35,8 +29,8 @@ void Keyboard::touch(int num)
 
 void Keyboard::transfur() //signal
 {
-	cable->Active();
-	//SIGNAL_MODLUS
+	//cable->Active();
+	SIGNAL_MODLUS
 }
 
 

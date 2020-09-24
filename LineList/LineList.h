@@ -1,7 +1,9 @@
 #ifndef _LINELIST_H_
 #define _LINELIST_H_
 
+#ifndef NULL
 #define NULL 0
+#endif
 
 #include <string>
 
