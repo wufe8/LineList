@@ -11,7 +11,7 @@
 
 //实际链表
 template<typename T>
-struct LinkedListDB;
+class LinkedListDB;
 
 //链表代理 使用std::list类似的双向链表 成员函数也尽可能完全兼容 另不使用迭代器管理 而是代理类
 template<typename T>
@@ -21,7 +21,7 @@ private:
 	LinkedListDB<T>* head; //存储实际链表的头节点
 	int totalLength; //每次成功的变更链表长度都应主动修改此成员
 public:
-	LinkedList(); //构造函数
+	LinkedList(T elem = 0); //构造函数
 	~LinkedList(); //析构函数
 	T & operator[](int idx); //返回对应位置数据的引用
 	int insert(int pos, T elem); //将elem插入到pos位置 返回插入后位置
@@ -39,65 +39,137 @@ public:
 
 //实际链表原型
 template<typename T>
-struct LinkedListDB
+class LinkedListDB
 {
+public:
 	T node;
 	LinkedListDB* next;
 	LinkedListDB* prev;
+	LinkedListDB(T elem = 0);
+	~LinkedListDB();
+	//void operator=(T elem);
 };
 
 template<typename T>
-LinkedList<T>::LinkedList()
+LinkedListDB<T>::LinkedListDB(T elem)
 {
+	this->node = elem;
+} //构造函数
 
+template<typename T>
+LinkedListDB<T>::~LinkedListDB()
+{
+} //析构函数
+
+//template<typename T>
+//void LinkedListDB<T>::operator=(T elem)
+//{
+	//this->node = elem;
+//} //重载赋值符
+
+template<typename T>
+LinkedList<T>::LinkedList(T elem)
+{
+	this->head = new LinkedListDB<T>(); //存储实际链表的头节点
+	this->head->next = this->head;
+	this->head->prev = this->head;
+	int totalLength = 1; //每次成功的变更链表长度都应主动修改此成员
 } //构造函数
 
 template<typename T>
 LinkedList<T>::~LinkedList()
 {
-
+	if (this->head->prev == this->head) //如果长度等于1 直接删除并结束函数
+	{
+		delete this->head;
+		return;
+	}
+	else if (this->head->prev == this->head->next) //如果长度等于1 直接删除并结束函数
+	{
+		delete this->head->next;
+		delete this->head;
+		return;
+	}
+	LinkedListDB<T>* tmp = this->head->prev; //长度大于等于3 从尾部开始删除
+	while (tmp != this->head->next) //重复删除直到总长为2
+	{
+		tmp = tmp->prev; //tmp指针往前移动
+		delete tmp->next; //删除原节点
+	}
+	delete this->head->next; //将剩余2个节点也删除
+	delete this->head;
 } //析构函数
 
 template<typename T>
 T & LinkedList<T>::operator[](int idx)
 {
-
+	if (idx > this->totalLength - 1) //请求节点大于链表长度 报错
+	{
+		throw"[ERROR] input index is out of LinkedList length";
+		return *(T*)NULL; //返回空引用
+	}
+	else if (idx == this->totalLength - 1) //请求节点为尾部 直接返回结果
+	{
+		return this->head->prev->node;
+	}
+	else if (idx == 0) //请求节点为头部 直接返回结果
+	{
+		return this->head->node;
+	}
+	LinkedListDB<T>* tmp = this->head;
+	for (int i = 0; i < idx ;i++)
+	{
+		tmp = tmp->next;
+	}
+	return tmp->node;
 } //返回对应位置数据的引用
 
 template<typename T>
 int LinkedList<T>::insert(int pos, T elem)
 {
-
+	return 0;
 } //将elem插入到pos位置 返回插入后位置
 
 template<typename T>
 int LinkedList<T>::erase(int pos)
 {
-
+	return 0;
 } //将pos位置的节点删除 返回0
 
 template<typename T>
 int LinkedList<T>::at(int idx)
 {
-
+	return this->operator[](idx);
 } //返回idx位置节点的数据
 
 template<typename T>
 T LinkedList<T>::peek_back()
 {
-
+	return this->head->prev->node;
 } //返回最后一个节点的数据
 
 template<typename T>
 T LinkedList<T>::push_back()
 {
-
+	T tmpData = this->head->prev->node;
+	LinkedListDB<T>* tmpPtr = this->head->prev->prev;
+	delete this->head->prev; //删除尾节点
+	this->head->prev = tmpPtr; //将根节点的上一个节点更改为目前的尾节点
+	tmpPtr->next = this->head; //将目前尾节点的下一个节点更改为根节点
+	(this->totalLength)--; //刷新链表长度
+	return tmpData;
 } //推出尾部 返回并删除最后一个节点的数据
 
 template<typename T>
 int LinkedList<T>::pop_back(T elem)
 {
-
+	LinkedListDB<T>* tmpPtr = this->head->prev;
+	this->head->prev = new LinkedListDB<T>(elem);
+	this->head->prev->prev = tmpPtr;
+	this->head->prev->next = this->head;
+	tmpPtr->next = this->head->prev;
+	(this->totalLength)++; //刷新链表长度
+	return 0;
 } //压入尾部 将elem插入到尾部
 
 template<typename T>
@@ -115,19 +187,26 @@ T LinkedList<T>::push_front()
 template<typename T>
 int LinkedList<T>::pop_front(T elem)
 {
-
+	return 0;
 } //压入头部 将elem插入到头部
 
 template<typename T>
 int LinkedList<T>::size()
 {
-
+	return this->totalLength;
 } //返回链表长度 直接返回totalLength 时间复杂度应该为O(1)
 
 template<typename T>
 int LinkedList<T>::hard_size()
 {
-
+	int getLength = 1;
+	LinkedListDB<T>* tmp = this->head->next;
+	while (tmp != this->head)
+	{
+		tmp = tmp->next;
+		getLength++;
+	}
+	return getLength;
 } //同上 但进行递归计数 不建议使用 时间复杂度应该为O(N)
 
 //----------------------

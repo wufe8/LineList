@@ -9,8 +9,20 @@ int SubLinkList(int mode = 0);
 
 int main(int argc, char* argv[])
 {
-	SubLinkList(0);
-	SubSignalSlot();
+	LinkedList<int> testList(100);
+	std::cout << testList[0] << std::endl;
+	testList[0] = 50;
+	std::cout << testList[0] << std::endl;
+	testList.pop_back(250);
+	testList.pop_back(500);
+	std::cout << "size = " << testList.size() << std::endl;
+	std::cout << "realSize = " << testList.hard_size() << std::endl;
+	for (int i = 0; i < 2 ;i++)
+	{
+		std::cout << testList[i] << std::endl;
+	}
+	//SubLinkList(0);
+	//SubSignalSlot();
 	return 0;
 }
 
