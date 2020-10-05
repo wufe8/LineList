@@ -1,15 +1,15 @@
 #include <iostream>
 #include <string>
-#include "LinkTemplate.h"
 #include "Toolkit.h"
 #include "SignalSlot.h"
+#include "LineList.h"
 
 int SubSignalSlot();
 int SubLinkList(int mode = 0);
 
 int main(int argc, char* argv[])
 {
-	SubLinkList(1);
+	SubLinkList(0);
 	SubSignalSlot();
 	return 0;
 }
