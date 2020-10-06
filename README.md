@@ -4,7 +4,9 @@
 
 本仓库(目前)包含以下内容
 
-1.[链表](LineList) 并基于链表的栈&队列实现
+1.[链表](LineList/Linelist.h) 双向链表 根据STL std::list模板类的成员函数进行模仿与兼容 但不使用迭代器
+2.[简易链表](LineList/SimpleLinkedList.h) 双向链表 较久前的个人实现了 已定归档
+3.[信号槽](LineList/SignalSlot.h) 信号与槽的实现 目前因不会解决编译期确定模板类实例 因此无法实现模板通用性
 
 ## 目录
 
@@ -18,30 +20,32 @@
 ## 描述
 自己研究和照着葫芦画的数据结构轮子
 研究学习数据结构用
-目前只实现了链表 栈和队列
 
 ## 结构
-虽然不认为除了我自己有人用 但就当备忘吧
 ```
 LineList
 |--README.md
 |--.gitignore
-|--LineList.sln		//vs工程文件
-|--LineList
-	|--LineList.h	//主头文件
-	|--LinkedList.c	//链表
-	|--makefile
-	|--Queue.cpp	//队列
-	|--Stack.cpp	//栈
-	|--test.cpp		//测试
+|--LineList.sln				//vs工程文件
+|--LineList             	
+	|--LineList.h			//兼容链表头文件 模板类 包含实现
+	|--pch.h				//预编译
+	|--makefile				//编译配置
+	|--SignalSlot.cpp		//信号槽实现
+	|--SignalSlot.h			//信号槽声明
+	|--SimpleLinkedList.h	//旧TLinkedList类及其继承子类
+	|--test					//测试 二进制
+	|--test.cpp				//测试
+	|--Toolkit.h			//调试工具用函数
 ```
 
 ## 使用
 **使用方法参考test.cpp**
 类:
-`TLinkedList` 单向链表
-`TStack` 栈
-`TQueue` 队列
+`TSimpleDoubleLL` 双向链表
+`TStackSLL` 栈
+`TQueueSLL` 队列
+
 
 ## 维护者
 Wufe8
