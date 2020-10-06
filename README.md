@@ -1,12 +1,12 @@
 # LineList
 
-一堆有各种基本数据结构的文件 自学用
+一堆有各种基本数据结构的文件 自学用  
 
-本仓库(目前)包含以下内容
+本仓库(目前)包含以下内容  
 
-1.[链表](LineList/Linelist.h) 双向链表 根据STL std::list模板类的成员函数进行模仿与兼容 但不使用迭代器
-2.[简易链表](LineList/SimpleLinkedList.h) 双向链表 较久前的个人实现了 已定归档
-3.[信号槽](LineList/SignalSlot.h) 信号与槽的实现 目前因不会解决编译期确定模板类实例 因此无法实现模板通用性
+1.[链表](LineList/Linelist.h) 双向链表 根据STL std::list模板类的成员函数进行模仿与兼容 但不使用迭代器  
+2.[简易链表](LineList/SimpleLinkedList.h) 双向链表 较久前的个人实现了 已定归档  
+3.[信号槽](LineList/SignalSlot.h) 信号与槽的实现 目前因不会解决编译期确定模板类实例 因此无法实现模板通用性  
 
 ## 目录
 
@@ -18,8 +18,8 @@
 - [使用许可 LICENSE](#使用许可)
 
 ## 描述
-自己研究和照着葫芦画的数据结构轮子
-研究学习数据结构用
+自己研究和照着葫芦画的数据结构轮子  
+研究学习数据结构用  
 
 ## 结构
 ```
@@ -42,9 +42,9 @@ LineList
 ## 使用
 **使用方法参考test.cpp**
 类:
-`TSimpleDoubleLL` 双向链表
-`TStackSLL` 栈
-`TQueueSLL` 队列
+`TSimpleDoubleLL` 双向链表  
+`TStackSLL` 栈  
+`TQueueSLL` 队列  
 
 
 ## 维护者
