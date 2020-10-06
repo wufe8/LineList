@@ -1,5 +1,5 @@
 a=test.o SignalSlot.o
-h=LineList.h SignalSlot.h Toolkit.h
+h=LineList.h SignalSlot.h Toolkit.h SimpleLinkedList.h
 
 test:$a
 	g++ -o test $a

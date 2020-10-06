@@ -3,6 +3,7 @@
 #include "Toolkit.h"
 #include "SignalSlot.h"
 #include "LineList.h"
+#include "SimpleLinkedList.h"
 
 int SubSignalSlot();
 int SubLinkList(int mode = 0);
@@ -16,12 +17,11 @@ int main(int argc, char* argv[])
 	testList.pop_back(250);
 	testList.pop_back(500);
 	testList.pop_back(750);
-	std::cout << "size = " << testList.size() << std::endl;
 	std::cout << "realSize = " << testList.hard_size() << std::endl;
-	for (int i = 0; i < testList.size(); i++)
-	{
-		std::cout << testList[i] << std::endl;
-	}
+	printEachNode(testList);
+	testList.erase(1);
+	printEachNode(testList);
+
 	//SubLinkList(0);
 	//SubSignalSlot();
 	return 0;
@@ -55,106 +55,106 @@ int SubSignalSlot()
 
 int SubLinkList(int mode) //0->linelist, 1->stack, 2->queue
 {
-	TLinkedList<long> head(1);
-	TStack<float> boat;
-	TQueue<double> unit;
+	TSimpleDoubleLL<long> head(1);
+	TStackSDLL<float> boat;
+	TQueueSDLL<double> unit;
 	switch (mode)
 	{
 	case 0:
 		std::cout << "\n================================\n\n";
-		printLineList(&head);
+		printTSLL(head);
 		head.addData(10, 0);
-		printLineList(&head);
+		printTSLL(head);
 		head.addList(2, 0);
-		printLineList(&head);
+		printTSLL(head);
 		head.addData(20, 1);
-		printLineList(&head);
+		printTSLL(head);
 		head.addList(3, 1);
-		printLineList(&head);
+		printTSLL(head);
 		head.addList(4, 2);
-		printLineList(&head);
+		printTSLL(head);
 		head.addList(5, 2);
-		printLineList(&head);
+		printTSLL(head);
 		head.delList(0);
-		printLineList(&head);
+		printTSLL(head);
 		head.addList(100, -1);
-		printLineList(&head);
+		printTSLL(head);
 		head.delList(3);
-		printLineList(&head);
+		printTSLL(head);
 		head.delList(3);
-		printLineList(&head);
+		printTSLL(head);
 		head.delList(3);
-		printLineList(&head);
+		printTSLL(head);
 		std::cout << "\n================================\n\n";
 		break;
 	case 1:
 		std::cout << "\n================================\n\n";
-		printLineList(&boat);
+		printTSLL(boat);
 		boat.setLength();
-		printLineList(&boat);
+		printTSLL(boat);
 		boat.push(10);
-		printLineList(&boat);
+		printTSLL(boat);
 		boat.push(20);
-		printLineList(&boat);
+		printTSLL(boat);
 		boat.push(30);
-		printLineList(&boat);
+		printTSLL(boat);
 		boat.peek();
-		printLineList(&boat);
+		printTSLL(boat);
 		boat.pop();
-		printLineList(&boat);
+		printTSLL(boat);
 		boat.push(40);
-		printLineList(&boat);
+		printTSLL(boat);
 		boat.pop();
-		printLineList(&boat);
+		printTSLL(boat);
 		boat.pop();
-		printLineList(&boat);
+		printTSLL(boat);
 		boat.peek();
-		printLineList(&boat);
+		printTSLL(boat);
 		boat.push(50);
-		printLineList(&boat);
+		printTSLL(boat);
 		boat.pop();
-		printLineList(&boat);
+		printTSLL(boat);
 		boat.pop();
-		printLineList(&boat);
+		printTSLL(boat);
 		boat.pop();
-		printLineList(&boat);
+		printTSLL(boat);
 		boat.peek();
-		printLineList(&boat);
+		printTSLL(boat);
 		boat.pop();
 		std::cout << "\n================================\n\n";
 		break;
 	case 2:
 		std::cout << "\n================================\n\n";
 		unit.setLength();
-		printLineList(&unit);
+		printTSLL(unit);
 		unit.push(10);
-		printLineList(&unit);
+		printTSLL(unit);
 		unit.push(20);
-		printLineList(&unit);
+		printTSLL(unit);
 		unit.push(30);
-		printLineList(&unit);
+		printTSLL(unit);
 		unit.peek();
-		printLineList(&unit);
+		printTSLL(unit);
 		unit.pop();
-		printLineList(&unit);
+		printTSLL(unit);
 		unit.push(40);
-		printLineList(&unit);
+		printTSLL(unit);
 		unit.pop();
-		printLineList(&unit);
+		printTSLL(unit);
 		unit.pop();
-		printLineList(&unit);
+		printTSLL(unit);
 		unit.peek();
-		printLineList(&unit);
+		printTSLL(unit);
 		unit.push(50);
-		printLineList(&unit);
+		printTSLL(unit);
 		unit.pop();
-		printLineList(&unit);
+		printTSLL(unit);
 		unit.pop();
-		printLineList(&unit);
+		printTSLL(unit);
 		unit.pop();
-		printLineList(&unit);
+		printTSLL(unit);
 		unit.peek();
-		printLineList(&unit);
+		printTSLL(unit);
 		unit.pop();
 		break;
 	}
