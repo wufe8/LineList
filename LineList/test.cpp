@@ -15,9 +15,10 @@ int main(int argc, char* argv[])
 	std::cout << testList[0] << std::endl;
 	testList.pop_back(250);
 	testList.pop_back(500);
+	testList.pop_back(750);
 	std::cout << "size = " << testList.size() << std::endl;
 	std::cout << "realSize = " << testList.hard_size() << std::endl;
-	for (int i = 0; i < 2 ;i++)
+	for (int i = 0; i < testList.size(); i++)
 	{
 		std::cout << testList[i] << std::endl;
 	}
