@@ -119,7 +119,7 @@ LinkedList<T>::~LinkedList()
 template<typename T>
 T & LinkedList<T>::operator[](int pos)
 {
-	if (pos > this->totalLength - 1) //请求节点大于链表长度 报错
+	if (pos > this->totalLength - 1) //请求节点大于链表长度-1 报错
 	{
 		std::cout << "[ERROR] LinkedList::operator[] : input index is out of LinkedList length" << std::endl;
 		return *(T*)NULL; //返回空引用
@@ -145,23 +145,26 @@ T & LinkedList<T>::operator[](int pos)
 template<typename T>
 void LinkedList<T>::insert(int pos, T elem)
 {
-	switch (pos)
+	if(pos == 0) //头节点插入 使用pop_front(T)方法
 	{
-	case 0: //头节点插入 使用pop_front(T)方法
 		this->pop_front(elem);
 		return;
-	case this->totalLength - 1: //尾节点插入 使用pop_back(T)方法 
+	}
+	else if (pos == this->totalLength) //尾节点插入 使用pop_back(T)方法 
+	{
 		this->pop_back(elem);
 		return;
-	default:
-		if (pos > this->totalLength - 1) //请求节点大于链表长度 报错
+	}
+	else
+	{
+		if (pos > this->totalLength) //请求节点大于链表长度 报错
 		{
 			std::cout << "[ERROR] LinkedList::insert : input index is out of LinkedList length" << std::endl;
 			return;
 		}
 		int headToPos = pos;
 		int tailToPos = this->size() - 1 - pos;
-		int lastToPos = this->lastIdx() - abs(pos);
+		int lastToPos = this->lastIdx - abs(pos);
 		//三分比较距离 理论上最大时间复杂度为只从链表头开始循环的三分之一 TODO 完成判断与不同情况的循环方式
 		LinkedListDB<T>* tmpPtrNext = this->head;
 		for (int i = 0; i < pos ;i++)
@@ -183,16 +186,19 @@ void LinkedList<T>::insert(int pos, T elem)
 template<typename T>
 T LinkedList<T>::erase(int pos)
 {
-	switch (pos)
+	if (pos == 0) //头节点删除 使用push_front()方法
 	{
-	case 0: //头节点删除 使用push_front()方法
 		return this->push_front();
 		//break;
-	case this->totalLength - 1: //尾节点删除 使用push_back()方法 
+	}
+	else if (pos == this->totalLength - 1) //尾节点删除 使用push_back()方法 
+	{
 		return this->push_back();
 		//break;
-	default:
-		if (pos > this->size() - 1) //请求节点大于链表长度 报错
+	}
+	else
+	{
+		if (pos > this->size() - 1) //请求节点大于链表长度-1 报错
 		{
 			std::cout << "[ERROR] LinkedList::insert : input index is out of LinkedList length" << std::endl;
 			return *(T*)NULL; //返回空引用
@@ -289,7 +295,7 @@ void LinkedList<T>::pop_front(T elem)
 	this->head->prev = tmpPtrPrev;
 	this->head->next = tmpPtrNext;
 	tmpPtrPrev->next = this->head;
-	tmpPtrNext->prev = this->head
+	tmpPtrNext->prev = this->head;
 	(this->totalLength)++; //刷新链表长度
 	this->lastIdx = 0;
 	this->lastPtr = this->head;

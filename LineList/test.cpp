@@ -21,6 +21,14 @@ int main(int argc, char* argv[])
 	printEachNode(testList);
 	testList.erase(1);
 	printEachNode(testList);
+	testList.insert(2, 1000);
+	printEachNode(testList);
+	testList.insert(1, 1250);
+	printEachNode(testList);
+	testList.erase(2);
+	printEachNode(testList);
+	testList.insert(4, 1500);
+	printEachNode(testList);
 
 	//SubLinkList(0);
 	//SubSignalSlot();
