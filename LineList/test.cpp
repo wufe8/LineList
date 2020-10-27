@@ -4,11 +4,39 @@
 #include "SignalSlot.h"
 #include "LineList.h"
 #include "SimpleLinkedList.h"
+#include "AVLTree.h"
 
-int SubSignalSlot();
-int SubLinkList(int mode = 0);
+void SubBinaryTree();
+void SubLinkedList();
+void SubSignalSlot();
+void SubSimpleLinkList(int mode = 0);
 
 int main(int argc, char* argv[])
+{
+	SubBinaryTree();
+	//SubLinkedList();
+	//SubSimpleLinkList(0);
+	//SubSignalSlot();
+	return 0;
+}
+
+void SubBinaryTree()
+{
+	SearchTree<int> testTree(10);
+	testTree.insert(5);
+	testTree.printAll();
+	testTree.insert(15);
+	testTree.insert(12);
+	testTree.insert(3);
+	testTree.insert(8);
+	testTree.insert(9);
+	testTree.insert(9);
+	testTree.printAll();
+	std::cout << testTree.find(9) << std::endl;
+	std::cout << testTree.find(1) << std::endl;
+}
+
+void SubLinkedList()
 {
 	LinkedList<int> testList(100);
 	std::cout << testList[0] << std::endl;
@@ -29,13 +57,18 @@ int main(int argc, char* argv[])
 	printEachNode(testList);
 	testList.insert(4, 1500);
 	printEachNode(testList);
-
-	//SubLinkList(0);
-	//SubSignalSlot();
-	return 0;
+	std::cout << "testList[3] == " << testList[3] << std::endl;
+	testList.pop_front(1750);
+	testList.pop_front(2000);
+	printEachNode(testList);
+	std::cout << "testList.push_front() return: " << testList.push_front() << std::endl;
+	testList.pop_back(2250);
+	printEachNode(testList);
+	system("pause");
+	return;
 }
 
-int SubSignalSlot()
+void SubSignalSlot()
 {
 	Keyboard ThisIsKeyboard;
 	Beeper ThisIsBeeper;
@@ -58,10 +91,10 @@ int SubSignalSlot()
 		ThisIsKeyboard.touch(keyboardInput);
 	}
 	system("pause");
-	return 0;
+	return;
 }
 
-int SubLinkList(int mode) //0->linelist, 1->stack, 2->queue
+void SubSimpleLinkedList(int mode) //0->linelist, 1->stack, 2->queue
 {
 	TSimpleDoubleLL<long> head(1);
 	TStackSDLL<float> boat;
@@ -83,8 +116,8 @@ int SubLinkList(int mode) //0->linelist, 1->stack, 2->queue
 		printTSLL(head);
 		head.addList(5, 2);
 		printTSLL(head);
-		head.delList(0);
 		printTSLL(head);
+		head.delList(0);
 		head.addList(100, -1);
 		printTSLL(head);
 		head.delList(3);
@@ -167,5 +200,5 @@ int SubLinkList(int mode) //0->linelist, 1->stack, 2->queue
 		break;
 	}
 	system("pause");
-	return 0;
+	return;
 }

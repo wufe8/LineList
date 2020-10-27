@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 
 #define LIST_LENGTH 32
@@ -36,6 +36,7 @@ int printTSLL(T & target)
 	return 0;
 }
 
+//通过[]后缀输出整个数组/已重载运算符的类 T & target形参接受任意符合上述要求的类
 template<class T>
 void printEachNode(T & target)
 {

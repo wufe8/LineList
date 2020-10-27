@@ -1,4 +1,4 @@
-#ifndef _LINELIST_H_
+﻿#ifndef _LINELIST_H_
 #define _LINELIST_H_
 
 #ifndef NULL
@@ -32,13 +32,13 @@ class LinkedList
 private:
 	LinkedListDB<T>* head; //存储实际链表的头节点
 	int totalLength; //每次成功的变更链表长度都应主动修改此成员
-	LinkedListDB<T>* lastPtr; //上一次访问位置的地址
-	int lastIdx; //上一次操作的位置
+	LinkedListDB<T>* lastPtr; //上一次写入的地址
+	int lastIdx; //上一次写入的位置
 public:
 	LinkedList(T elem = 0); //构造函数
 	~LinkedList(); //析构函数
-	T & operator[](int pos); //返回对应位置数据的引用
-	void insert(int pos, T elem); //将elem插入到pos位置 返回插入后位置
+	T & operator[](int pos); //返回对应位置数据的引用 不会记录lastIdx以及lastPtr TODO 添加返回const引用的重载函数
+	void insert(int pos, T elem); //将elem插入到pos位置
 	T erase(int pos); //将pos位置的节点删除 返回删除值
 	T at(int pos); //返回idx位置节点的数据
 	T peek_back(); //返回最后一个节点的数据
@@ -68,6 +68,8 @@ template<typename T>
 LinkedListDB<T>::LinkedListDB(T elem)
 {
 	this->node = elem;
+	this->next = nullptr;
+	this->prev = nullptr;
 } //构造函数
 
 template<typename T>
@@ -137,8 +139,9 @@ T & LinkedList<T>::operator[](int pos)
 	{
 		tmp = tmp->next;
 	}
-	lastIdx = pos;
-	lastPtr = tmp;
+	//lastIdx = pos;
+	//lastPtr = tmp;
+	//注意可能导致通过重载赋值不会记录到lastIdx与lastPtr中
 	return tmp->node;
 } //返回对应位置数据的引用
 
@@ -232,6 +235,8 @@ T LinkedList<T>::at(int pos)
 template<typename T>
 T LinkedList<T>::peek_back()
 {
+	//this->lastIdx = this->totalLength - 1;
+	//this->lastPtr = this->head->prev;
 	return this->head->prev->node;
 } //返回最后一个节点的数据
 
@@ -242,10 +247,10 @@ T LinkedList<T>::push_back()
 	LinkedListDB<T>* tmpPtr = this->head->prev;
 	tmpPtr->next->prev = tmpPtr->prev; //将头节点的上一个节点更新为倒二节点
 	tmpPtr->prev->next = tmpPtr->next; //将倒二节点的下一个节点更改为头节点
-	this->lastIdx = 0;
-	this->lastPtr = tmpPtr->prev;
 	delete tmpPtr; //删除根节点
 	(this->totalLength)--; //刷新链表长度
+	this->lastIdx = this->totalLength - 1;
+	this->lastPtr = this->head->prev;
 	return tmpData;
 } //推出尾部 返回并删除最后一个节点的数据
 
@@ -265,8 +270,8 @@ void LinkedList<T>::pop_back(T elem)
 template<typename T>
 T LinkedList<T>::peek_front()
 {
-	this->lastIdx = 0;
-	this->lastPtr = this->head;
+	//this->lastIdx = 0;
+	//this->lastPtr = this->head;
 	return this->head->node;
 } //返回第一个节点的数据
 
@@ -278,11 +283,11 @@ T LinkedList<T>::push_front()
 	LinkedListDB<T>* tmpPtrNext = this->head->next;
 	tmpPtrNext->prev = tmpPtrPrev; //将第二个节点的上一个节点更新为尾节点
 	tmpPtrPrev->next = tmpPtrNext; //将尾节点的下一个节点更改为第二个节点
-	this->lastIdx = 0;
-	this->lastPtr = tmpPtrNext;
 	delete this->head; //删除根节点
-	this->head = tmpPtrNext->prev; //更新根节点
+	this->head = tmpPtrNext; //更新根节点
 	(this->totalLength)--; //刷新链表长度
+	this->lastIdx = 0;
+	this->lastPtr = this->head;
 	return tmpData;
 } //推出头部 返回并删除第一个节点的数据
 
