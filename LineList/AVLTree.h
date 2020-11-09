@@ -147,8 +147,8 @@ void SearchTree<T>::printAllR()
 	{
 		return;
 	}
-	std::cout << this->node << "  ";
 	this->left->printAllR();
+	std::cout << this->node << "  ";
 	this->right->printAllR();
 }
 
