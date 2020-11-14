@@ -1,15 +1,20 @@
+#include <cmath>
 #include <iostream>
 #include <string>
+#include <type_traits>
 #include "Toolkit.h"
 #include "SignalSlot.h"
 #include "LineList.h"
 #include "SimpleLinkedList.h"
 #include "AVLTree.h"
 
+#pragma warning (disable: 4996)
+//msvc下忽略对scanf要求使用scanf_s的报错
+
 void SubBinaryTree();
 void SubLinkedList();
 void SubSignalSlot();
-void SubSimpleLinkList(int mode = 0);
+void SubSimpleLinkedList(int mode = 0);
 
 int main(int argc, char* argv[])
 {
@@ -34,6 +39,9 @@ void SubBinaryTree()
 	testTree.printAll();
 	std::cout << testTree.find(9) << std::endl;
 	std::cout << testTree.find(1) << std::endl;
+	std::cout << "min = " << testTree.findMin() << std::endl;
+	testTree.remove(5);
+	testTree.printAll();
 }
 
 void SubLinkedList()
