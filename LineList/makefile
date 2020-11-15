@@ -1,5 +1,5 @@
 a=test.o SignalSlot.o
-h=AVLTree.h LinkedList.h SignalSlot.h Toolkit.h SimpleLinkedList.h
+h=SearchTree.h AVLTree.h LinkedList.h SignalSlot.h Toolkit.h SimpleLinkedList.h
 
 test:$a
 	g++ -o test $a

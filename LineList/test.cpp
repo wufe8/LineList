@@ -6,6 +6,7 @@
 #include "SignalSlot.h"
 #include "LinkedList.h"
 #include "SimpleLinkedList.h"
+#include "SearchTree.h"
 #include "AVLTree.h"
 
 #define _CRT_SECURE_NO_WARNINGS true
@@ -20,10 +21,9 @@ void SubSignalSlot();
 int main(int argc, char* argv[])
 {
 	SubBinaryTree();
-	SubLinkedList();
-	SubSimpleLinkedList(0);
-	SubSignalSlot();
-	system("pause");
+	//SubLinkedList();
+	//SubSimpleLinkedList(0);
+	//SubSignalSlot();
 	return 0;
 }
 
@@ -43,6 +43,9 @@ void SubBinaryTree()
 	std::cout << testTree.find(1) << std::endl;
 	std::cout << "min = " << testTree.findMin() << std::endl;
 	testTree.remove(5);
+	testTree.printAll();
+	testTree.remove(10);
+	testTree.remove(3);
 	testTree.printAll();
 	system("pause");
 }
