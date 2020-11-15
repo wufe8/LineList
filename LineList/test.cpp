@@ -4,24 +4,26 @@
 #include <type_traits>
 #include "Toolkit.h"
 #include "SignalSlot.h"
-#include "LineList.h"
+#include "LinkedList.h"
 #include "SimpleLinkedList.h"
 #include "AVLTree.h"
 
+#define _CRT_SECURE_NO_WARNINGS true
 #pragma warning (disable: 4996)
 //msvc下忽略对scanf要求使用scanf_s的报错
 
 void SubBinaryTree();
 void SubLinkedList();
-void SubSignalSlot();
 void SubSimpleLinkedList(int mode = 0);
+void SubSignalSlot();
 
 int main(int argc, char* argv[])
 {
 	SubBinaryTree();
-	//SubLinkedList();
-	//SubSimpleLinkList(0);
-	//SubSignalSlot();
+	SubLinkedList();
+	SubSimpleLinkedList(0);
+	SubSignalSlot();
+	system("pause");
 	return 0;
 }
 
@@ -42,6 +44,7 @@ void SubBinaryTree()
 	std::cout << "min = " << testTree.findMin() << std::endl;
 	testTree.remove(5);
 	testTree.printAll();
+	system("pause");
 }
 
 void SubLinkedList()
@@ -72,32 +75,6 @@ void SubLinkedList()
 	std::cout << "testList.push_front() return: " << testList.push_front() << std::endl;
 	testList.pop_back(2250);
 	printEachNode(testList);
-	system("pause");
-	return;
-}
-
-void SubSignalSlot()
-{
-	Keyboard ThisIsKeyboard;
-	Beeper ThisIsBeeper;
-	std::cout << "ThisIsKeyboard.transfur = 0x" << &ThisIsKeyboard << " + " << &Keyboard::transfur << std::endl;
-	std::cout << "ThisIsBeeper.beep = 0x" << &ThisIsBeeper << " + " << &Beeper::beep << std::endl;
-	Connect/*<Keyboard, Beeper>*/ Bus0(&ThisIsKeyboard, &Keyboard::transfur, &ThisIsBeeper, &Beeper::beep);
-	int keyboardInput = 0;
-	while(1)
-	{
-		printf("%s", "local > ");
-		if (scanf("%d", &keyboardInput) == 0)
-		{
-			while (getchar() != '\n');
-			std::cout << "200 error input" << std::endl;
-			continue;
-		}
-		//std::cin >> keyboardInput;
-		//std::cin.clear(); 
-		//td::cin.ignore();
-		ThisIsKeyboard.touch(keyboardInput);
-	}
 	system("pause");
 	return;
 }
@@ -210,3 +187,34 @@ void SubSimpleLinkedList(int mode) //0->linelist, 1->stack, 2->queue
 	system("pause");
 	return;
 }
+
+
+void SubSignalSlot()
+{
+	Keyboard ThisIsKeyboard;
+	Beeper ThisIsBeeper;
+	std::cout << "ThisIsKeyboard.transfur = 0x" << &ThisIsKeyboard << " + " << &Keyboard::transfur << std::endl;
+	std::cout << "ThisIsBeeper.beep = 0x" << &ThisIsBeeper << " + " << &Beeper::beep << std::endl;
+	Connect/*<Keyboard, Beeper>*/ Bus0(&ThisIsKeyboard, &Keyboard::transfur, &ThisIsBeeper, &Beeper::beep);
+	int keyboardInput = 0;
+	while(1)
+	{
+		printf("%s", "local > ");
+		if (scanf("%d", &keyboardInput) == 0)
+		{
+			while (getchar() != '\n');
+			std::cout << "200 error input" << std::endl;
+			continue;
+		}
+		//std::cin >> keyboardInput;
+		//std::cin.clear(); 
+		//td::cin.ignore();
+		if (ThisIsKeyboard.touch(keyboardInput) == 1)
+		{
+			break;
+		}
+	}
+	system("pause");
+	return;
+}
+

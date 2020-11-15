@@ -33,16 +33,16 @@ public:
 template<typename T>
 TSimpleDoubleLL<T>::TSimpleDoubleLL(T data) :
 	data(data),
-	next(NULL),
-	prev(NULL)
+	next(nullptr),
+	prev(nullptr)
 {
 }
 template<typename T>
-inline int TSimpleDoubleLL<T>::checkNextIsNull() //检查下一个节点是否为NULL
+inline int TSimpleDoubleLL<T>::checkNextIsNull() //检查下一个节点是否为nullptr
 {
-	if (this->next == NULL)
+	if (this->next == nullptr)
 	{
-		std::cout << "ERROR: this->next == NULL; in " << this << std::endl;
+		std::cout << "ERROR: this->next == nullptr; in " << this << std::endl;
 		return 1;
 	}
 	else
@@ -52,11 +52,11 @@ inline int TSimpleDoubleLL<T>::checkNextIsNull() //检查下一个节点是否�
 }
 
 template<typename T>
-inline int TSimpleDoubleLL<T>::checkPrevIsNull() //检查上一个节点是否为NULL
+inline int TSimpleDoubleLL<T>::checkPrevIsNull() //检查上一个节点是否为nullptr
 {
-	if (this->prev == NULL)
+	if (this->prev == nullptr)
 	{
-		std::cout << "ERROR: this->prev == NULL; in " << this << std::endl;
+		std::cout << "ERROR: this->prev == nullptr; in " << this << std::endl;
 		return 1;
 	}
 	else
@@ -100,12 +100,12 @@ T TSimpleDoubleLL<T>::getData(int pos) //获取pos节点的data
 template<typename T>
 int TSimpleDoubleLL<T>::getDataArray(std::string* array, int pos, int length) //将pos到length间的节点data赋到array[0 to length]
 {
-	if (array == NULL) //check array
+	if (array == nullptr) //check array
 	{
-		std::cout << "array is NULL!" << std::endl;
+		std::cout << "array is nullptr!" << std::endl;
 		return -1;
 	}
-	if (array + length - 1 == NULL) //check array[length - 1]
+	if (array + length - 1 == nullptr) //check array[length - 1]
 	{
 		std::cout << "length is wrong!" << std::endl;
 		return -2;
@@ -113,7 +113,7 @@ int TSimpleDoubleLL<T>::getDataArray(std::string* array, int pos, int length) //
 	array[pos] = std::to_string(this->data); //get data
 	if (pos < length -1)
 	{
-		if (this->next == NULL) //check next is NULL
+		if (this->next == nullptr) //check next is nullptr
 		{
 			return -3;
 		}
@@ -209,7 +209,7 @@ int TSimpleDoubleLL<T>::addList(T data, int pos) //在pos节点后添加新节�
 			point = point->next;
 		}
 	}
-	if (point->next == NULL) //create in tail
+	if (point->next == nullptr) //create in tail
 	{
 		TSimpleDoubleLL* newNode = new TSimpleDoubleLL(data);
 		newNode->prev = point;
@@ -237,7 +237,7 @@ int TSimpleDoubleLL<T>::addList(T data, int pos) //在pos节点后添加新节�
 	}
 	else
 	{
-		if (this->next == NULL) //create in tail
+		if (this->next == nullptr) //create in tail
 		{
 			TSimpleDoubleLL* newNode = new TSimpleDoubleLL(data);
 			newNode->prev = this;
@@ -265,7 +265,7 @@ T TSimpleDoubleLL<T>::delList(int pos) //删除pos节点
 	T deletedData = 0;
 	if (pos == 0) //del the head, in fact it just copy this->next, then delete this->next
 	{
-		if (this->next == NULL) //No node left
+		if (this->next == nullptr) //No node left
 		{
 			deletedData = this->data;
 			this->data = 0;
@@ -292,9 +292,9 @@ T TSimpleDoubleLL<T>::delList(int pos) //删除pos节点
 			pointerBuffer = pointerBuffer->next;
 		}
 	}
-	if (pointerBuffer->next == NULL) //del the tail
+	if (pointerBuffer->next == nullptr) //del the tail
 	{
-		pointerBuffer->prev->next = NULL;
+		pointerBuffer->prev->next = nullptr;
 		deletedData = pointerBuffer->data;;
 		delete pointerBuffer;
 		std::cout << "deleted [" << pos << "] ;delete type: tail" << std::endl;
@@ -328,9 +328,9 @@ T TSimpleDoubleLL<T>::delList(int pos) //删除pos节点
 	//		std::cout << "deleted [" << pos << "] ;delete type: head" << std::endl;
 	//		return 0;
 	//	}
-	//	else if (this->next == NULL) //del the tail
+	//	else if (this->next == nullptr) //del the tail
 	//	{
-	//		this->prev->next = NULL; //flash prev.next to prevent wrong recursive
+	//		this->prev->next = nullptr; //flash prev.next to prevent wrong recursive
 	//		delete this;
 	//		std::cout << "deleted [" << pos << "] ;delete type: tail" << std::endl;
 	//	}
@@ -349,7 +349,7 @@ T TSimpleDoubleLL<T>::delList(int pos) //删除pos节点
 template<typename T>
 int TSimpleDoubleLL<T>::getLength() //递归获取链表长度 效率可能过低 推荐使用setLength()进行记录而非直接调用
 {
-	if (this->next == NULL) //check if this->next == NULL, that return tail
+	if (this->next == nullptr) //check if this->next == nullptr, that return tail
 	{
 		return 1;
 	}
@@ -375,7 +375,7 @@ int TSimpleDoubleLL<T>::setLength() //将链表长度记录到this->data
 //栈实现 父类:TSimpleDoubleLL
 //----------------------
 template<typename T>
-class TStackSDLL : public TSimpleDoubleLL<T> //使用前请务必使用setLength()方法检测链表长度!!
+class TStackSDLL : private TSimpleDoubleLL<T> //使用前请务必使用setLength()方法检测链表长度!!
 {
 public:
 	void push(T data);
@@ -383,6 +383,9 @@ public:
 	T peek();
 	using TSimpleDoubleLL<T>::TSimpleDoubleLL; //C++11
 	//TStackSDLL() : TSimpleDoubleLL<T>(1){};
+	using TSimpleDoubleLL<T>::getDataArray;
+	using TSimpleDoubleLL<T>::getLength;
+	using TSimpleDoubleLL<T>::setLength;
 };
 
 template<typename T>
@@ -430,13 +433,16 @@ T TStackSDLL<T>::peek()
 //队列实现 父类:TSimpleDoubleLL
 //----------------------
 template<typename T>
-class TQueueSDLL : public TSimpleDoubleLL<T>
+class TQueueSDLL : private TSimpleDoubleLL<T>
 {
 public:
 	void push(T data);
 	T pop();
 	T peek();
 	using TSimpleDoubleLL<T>::TSimpleDoubleLL; //C++11
+	using TSimpleDoubleLL<T>::getDataArray;
+	using TSimpleDoubleLL<T>::getLength;
+	using TSimpleDoubleLL<T>::setLength;
 };
 
 template<typename T>

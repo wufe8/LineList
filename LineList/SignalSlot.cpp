@@ -13,7 +13,7 @@ Keyboard::~Keyboard()
 }
 
 
-void Keyboard::touch(int num)
+int Keyboard::touch(int num)
 {
 	switch(num)
 	{
@@ -21,9 +21,13 @@ void Keyboard::touch(int num)
 		std::cout << "100 ok" << std::endl;
 		emit transfur();
 		break;
+	case 0:
+		std::cout << "500 halt" << std::endl;
+		return 1; //skip loop
 	default:
 		std::cout << "0   no response" << std::endl;
 	}
+	return 0;
 }
 
 

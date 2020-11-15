@@ -24,7 +24,7 @@ class Keyboard : public Device
 public:
 	Keyboard();
 	~Keyboard();
-	void touch(int num);
+	int touch(int num);
 signals:
 	void transfur();
 };

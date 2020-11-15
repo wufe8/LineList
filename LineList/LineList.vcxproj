@@ -151,7 +151,8 @@
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LineList.h" />
+    <ClInclude Include="AVLTree.h" />
+    <ClInclude Include="LinkedList.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="SignalSlot.h" />
     <ClInclude Include="SimpleLinkedList.h" />

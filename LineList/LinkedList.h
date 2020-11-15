@@ -1,5 +1,5 @@
-﻿#ifndef _LINELIST_H_
-#define _LINELIST_H_
+﻿#ifndef _LINKEDLIST_H_
+#define _LINKEDLIST_H_
 
 #ifndef NULL
 #define NULL 0
@@ -165,9 +165,9 @@ void LinkedList<T>::insert(int pos, T elem)
 			std::cout << "[ERROR] LinkedList::insert : input index is out of LinkedList length" << std::endl;
 			return;
 		}
-		int headToPos = pos;
-		int tailToPos = this->size() - 1 - pos;
-		int lastToPos = this->lastIdx - abs(pos);
+		//int headToPos = pos;
+		//int tailToPos = this->size() - 1 - pos;
+		//int lastToPos = this->lastIdx - abs(pos);
 		//三分比较距离 理论上最大时间复杂度为只从链表头开始循环的三分之一 TODO 完成判断与不同情况的循环方式
 		LinkedListDB<T>* tmpPtrNext = this->head;
 		for (int i = 0; i < pos ;i++)
@@ -206,16 +206,16 @@ T LinkedList<T>::erase(int pos)
 			std::cout << "[ERROR] LinkedList::insert : input index is out of LinkedList length" << std::endl;
 			return *(T*)NULL; //返回空引用
 		}
-		int headToPos = pos;
-		int tailToPos = this->size() - 1 - pos;
-		int lastToPos = this->lastIdx - abs(pos);
+		//int headToPos = pos;
+		//int tailToPos = this->size() - 1 - pos;
+		//int lastToPos = this->lastIdx - abs(pos);
 		//三分比较距离 理论上最大时间复杂度为只从链表头开始循环的三分之一 TODO 完成判断与不同情况的循环方式
 		LinkedListDB<T>* tmpPtr = this->head;
 		for (int i = 0; i < pos ;i++)
 		{
 			tmpPtr = tmpPtr->next;
 		}
-		T tmpData = tmpPtr->node;
+		//T tmpData = tmpPtr->node;
 		tmpPtr->next->prev = tmpPtr->prev;
 		tmpPtr->prev->next = tmpPtr->next;
 		this->lastIdx = pos;
