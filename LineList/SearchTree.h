@@ -20,7 +20,7 @@ private:
 	bool setSelf(SearchTree<T>* target); // 修改自身相对双亲的地址 用于同步子节点的变更
 public:
 	SearchTree(T elem = NULL);                // 构造函数
-	~SearchTree();                         // 析构函数
+	~SearchTree();                         // 析构函数 请使用deleteAll删除整个树
 	void clone(const SearchTree* target);  // 拷贝类 不会改变双亲
 	T getNode();                           // 返回node成员变量
 	bool insert(T elem);                   // 添加结点
@@ -28,6 +28,7 @@ public:
 	SearchTree<T>* findMin();              // 查找最小节点 返回节点地址
 	bool remove(T elem);                   // 删除节点 有则返回1 无则返回0
 	void printAll();                       // 中遍历打印所有节点 初步引用
+	void deleteAll();                      // 后序遍历删除整个树
 };
 
 template<typename T>
@@ -219,6 +220,20 @@ void SearchTree<T>::printAll()
 {
 	printAllR();
 	std::cout << std::endl;
+}
+
+template<typename T>
+void SearchTree<T>::deleteAll()
+{
+	if (this->left != nullptr)
+	{
+		this->left->deleteAll();
+	}
+	if (this->right != nullptr)
+	{
+		this->right->deleteAll();
+	}
+	delete this;
 }
 
 #endif

@@ -5,15 +5,7 @@
 #define NULL 0
 #endif
 
-#include <iostream>
-#include <string>
-#include <vector>
-
-template<typename T>
-T abs(T number)
-{
-	return number > 0 ? number : -1 * number;
-} //简单计算绝对值
+#include "Toolkit.h"
 
 //----------------------
 //实际链表

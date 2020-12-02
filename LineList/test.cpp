@@ -6,6 +6,7 @@
 #include "SignalSlot.h"
 #include "LinkedList.h"
 #include "SimpleLinkedList.h"
+#include "OldDoubleLinkedList.h"
 #include "SearchTree.h"
 #include "AVLTree.h"
 
@@ -21,9 +22,9 @@ void SubSignalSlot();
 int main(int argc, char* argv[])
 {
 	SubBinaryTree();
-	//SubLinkedList();
-	//SubSimpleLinkedList(0);
-	//SubSignalSlot();
+	SubLinkedList();
+	SubSimpleLinkedList(0);
+	SubSignalSlot();
 	return 0;
 }
 
@@ -60,130 +61,130 @@ void SubLinkedList()
 	testList.pop_back(500);
 	testList.pop_back(750);
 	std::cout << "realSize = " << testList.hard_size() << std::endl;
-	printEachNode(testList);
+	printArray(testList, testList.size());
 	testList.erase(1);
-	printEachNode(testList);
+	printArray(testList, testList.size());
 	testList.insert(2, 1000);
-	printEachNode(testList);
+	printArray(testList, testList.size());
 	testList.insert(1, 1250);
-	printEachNode(testList);
+	printArray(testList, testList.size());
 	testList.erase(2);
-	printEachNode(testList);
+	printArray(testList, testList.size());
 	testList.insert(4, 1500);
-	printEachNode(testList);
+	printArray(testList, testList.size());
 	std::cout << "testList[3] == " << testList[3] << std::endl;
 	testList.pop_front(1750);
 	testList.pop_front(2000);
-	printEachNode(testList);
+	printArray(testList, testList.size());
 	std::cout << "testList.push_front() return: " << testList.push_front() << std::endl;
 	testList.pop_back(2250);
-	printEachNode(testList);
+	printArray(testList, testList.size());
 	system("pause");
 	return;
 }
 
 void SubSimpleLinkedList(int mode) //0->linelist, 1->stack, 2->queue
 {
-	TSimpleDoubleLL<long> head(1);
-	TStackSDLL<float> boat;
-	TQueueSDLL<double> unit;
+	ODLL<long> head(1);
+	TStackODLL<float> boat;
+	TQueueODLL<double> unit;
 	switch (mode)
 	{
 	case 0:
 		std::cout << "\n================================\n\n";
-		printTSLL(head);
+		printODLL(head);
 		head.addData(10, 0);
-		printTSLL(head);
+		printODLL(head);
 		head.addList(2, 0);
-		printTSLL(head);
+		printODLL(head);
 		head.addData(20, 1);
-		printTSLL(head);
+		printODLL(head);
 		head.addList(3, 1);
-		printTSLL(head);
+		printODLL(head);
 		head.addList(4, 2);
-		printTSLL(head);
+		printODLL(head);
 		head.addList(5, 2);
-		printTSLL(head);
-		printTSLL(head);
+		printODLL(head);
+		printODLL(head);
 		head.delList(0);
 		head.addList(100, -1);
-		printTSLL(head);
+		printODLL(head);
 		head.delList(3);
-		printTSLL(head);
+		printODLL(head);
 		head.delList(3);
-		printTSLL(head);
+		printODLL(head);
 		head.delList(3);
-		printTSLL(head);
+		printODLL(head);
 		std::cout << "\n================================\n\n";
 		break;
 	case 1:
 		std::cout << "\n================================\n\n";
-		printTSLL(boat);
+		printODLL(boat);
 		boat.setLength();
-		printTSLL(boat);
+		printODLL(boat);
 		boat.push(10);
-		printTSLL(boat);
+		printODLL(boat);
 		boat.push(20);
-		printTSLL(boat);
+		printODLL(boat);
 		boat.push(30);
-		printTSLL(boat);
+		printODLL(boat);
 		boat.peek();
-		printTSLL(boat);
+		printODLL(boat);
 		boat.pop();
-		printTSLL(boat);
+		printODLL(boat);
 		boat.push(40);
-		printTSLL(boat);
+		printODLL(boat);
 		boat.pop();
-		printTSLL(boat);
+		printODLL(boat);
 		boat.pop();
-		printTSLL(boat);
+		printODLL(boat);
 		boat.peek();
-		printTSLL(boat);
+		printODLL(boat);
 		boat.push(50);
-		printTSLL(boat);
+		printODLL(boat);
 		boat.pop();
-		printTSLL(boat);
+		printODLL(boat);
 		boat.pop();
-		printTSLL(boat);
+		printODLL(boat);
 		boat.pop();
-		printTSLL(boat);
+		printODLL(boat);
 		boat.peek();
-		printTSLL(boat);
+		printODLL(boat);
 		boat.pop();
 		std::cout << "\n================================\n\n";
 		break;
 	case 2:
 		std::cout << "\n================================\n\n";
 		unit.setLength();
-		printTSLL(unit);
+		printODLL(unit);
 		unit.push(10);
-		printTSLL(unit);
+		printODLL(unit);
 		unit.push(20);
-		printTSLL(unit);
+		printODLL(unit);
 		unit.push(30);
-		printTSLL(unit);
+		printODLL(unit);
 		unit.peek();
-		printTSLL(unit);
+		printODLL(unit);
 		unit.pop();
-		printTSLL(unit);
+		printODLL(unit);
 		unit.push(40);
-		printTSLL(unit);
+		printODLL(unit);
 		unit.pop();
-		printTSLL(unit);
+		printODLL(unit);
 		unit.pop();
-		printTSLL(unit);
+		printODLL(unit);
 		unit.peek();
-		printTSLL(unit);
+		printODLL(unit);
 		unit.push(50);
-		printTSLL(unit);
+		printODLL(unit);
 		unit.pop();
-		printTSLL(unit);
+		printODLL(unit);
 		unit.pop();
-		printTSLL(unit);
+		printODLL(unit);
 		unit.pop();
-		printTSLL(unit);
+		printODLL(unit);
 		unit.peek();
-		printTSLL(unit);
+		printODLL(unit);
 		unit.pop();
 		break;
 	}
